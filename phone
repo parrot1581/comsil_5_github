@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+	echo "Usage: phone searchfor[...searchfor]"
+	echo "(You didn't tell me what you want to search for.)"
+else
+
+
+res=$(cat mydata)
+
+for search in "$@"
+do
+	res=$(echo "$res" | egrep -i "$search")
+done 
+echo "$res"| awk '!seen[$0]++' | awk -f display.awk
+
+fi
